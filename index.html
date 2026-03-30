@@ -1,0 +1,493 @@
+  <!DOCTYPE html>
+  <html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+    <meta name="description" content="A professional Bootstrap 5 restaurant website template with menu, chef specials, booking, and contact sections.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #f7f3ee;
+        --surface: #fffdfa;
+        --surface-2: #f1ebe4;
+        --text: #221814;
+        --muted: #6f6259;
+        --border: rgba(34, 24, 20, 0.12);
+        --primary: #8a3d22;
+        --primary-hover: #6e2f19;
+        --accent: #f0dfd2;
+        --gold: #c79a4b;
+        --shadow: 0 14px 38px rgba(34, 24, 20, 0.08);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+      }
+      [data-theme="dark"] {
+        --bg: #140f0d;
+        --surface: #1c1512;
+        --surface-2: #281f1a;
+        --text: #f4ece5;
+        --muted: #b8a79b;
+        --border: rgba(244, 236, 229, 0.11);
+        --primary: #d07a52;
+        --primary-hover: #eb9d77;
+        --accent: rgba(208, 122, 82, 0.15);
+        --gold: #d9b06b;
+        --shadow: 0 18px 45px rgba(0, 0, 0, 0.34);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: 'Manrope', sans-serif;
+        background: radial-gradient(circle at top left, rgba(199,154,75,0.08), transparent 24%), var(--bg);
+        color: var(--text);
+      }
+      h1, h2, .logo-word { font-family: 'Cormorant Garamond', serif; }
+      .navbar {
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+      .brand-mark {
+        width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary), #2b211d); color: #fff; box-shadow: var(--shadow);
+      }
+      .logo-word { font-size: 1.55rem; letter-spacing: .03em; }
+      .nav-link { color: var(--muted); font-weight: 600; }
+      .nav-link:hover, .nav-link.active { color: var(--text); }
+      .theme-toggle {
+        width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      }
+      .hero {
+        padding: 8rem 0 5rem;
+      }
+      .eyebrow {
+        display: inline-block; padding: .45rem .9rem; border-radius: 999px; background: var(--accent);
+        color: var(--primary); font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      }
+      .hero-title {
+        font-size: clamp(3rem, 5vw, 5.5rem); line-height: .95; margin: 1rem 0 1.25rem; letter-spacing: -.03em;
+      }
+      .hero-copy, .section-copy, .muted { color: var(--muted); }
+      .btn-brand {
+        background: var(--primary); border-color: var(--primary); color: #fff; border-radius: 14px; font-weight: 700; padding: .95rem 1.3rem;
+      }
+      .btn-brand:hover, .btn-brand:focus { background: var(--primary-hover); border-color: var(--primary-hover); color: #fff; }
+      .btn-outline-soft {
+        background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 14px; font-weight: 700; padding: .95rem 1.3rem;
+      }
+      .hero-visual, .story-card, .menu-card, .booking-card, .review-card, .info-card {
+        background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow);
+      }
+      .hero-visual { padding: 1.25rem; }
+      .food-photo {
+        border-radius: calc(var(--radius-xl) - 8px); min-height: 470px; position: relative; overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(15,10,7,0.08), rgba(15,10,7,0.42)),
+          url('restaurant.jpg') center/cover no-repeat;
+      }
+      .floating-note {
+        position: absolute; left: 1rem; right: 1rem; bottom: 1rem; background: color-mix(in srgb, var(--surface) 88%, transparent);
+        backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: 20px; padding: 1rem 1.1rem;
+      }
+      .section-pad { padding: 5rem 0; }
+      .section-title { font-size: clamp(2rem, 3vw, 3.2rem); letter-spacing: -.02em; }
+      .story-card, .booking-card, .review-card, .info-card, .menu-card { padding: 1.5rem; height: 100%; }
+      .story-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1.25rem; }
+      .chef-mini {
+          border-radius: 22px;
+          min-height: 100%;
+          border: 1px solid var(--border);
+          overflow: hidden;
+      }
+        
+      .menu-card:hover, .review-card:hover, .info-card:hover { transform: translateY(-4px); }
+      .menu-badge {
+        display: inline-block; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); font-weight: 800;
+      }
+      .price-tag { color: var(--primary); font-weight: 800; font-size: 1.1rem; }
+      .divider-line { height: 1px; background: var(--border); margin: 1rem 0; }
+      .booking-form .form-control, .booking-form .form-select {
+        min-height: 52px; border-radius: 14px; border-color: var(--border); background: var(--surface-2); color: var(--text);
+      }
+      .booking-form .form-control::placeholder { color: var(--muted); }
+      .booking-form .form-control:focus, .booking-form .form-select:focus {
+        box-shadow: 0 0 0 .2rem rgba(138,61,34,.15); border-color: var(--primary);
+      }
+      .stats-band {
+        background: linear-gradient(135deg, var(--surface), var(--surface-2));
+        border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.25rem; box-shadow: var(--shadow);
+      }
+      .stat-value { font-size: 2rem; font-weight: 800; }
+      .footer-wrap { border-top: 1px solid var(--border); }
+      .pill-link {
+        display: inline-flex; align-items: center; gap: .45rem; color: var(--text); text-decoration: none; font-weight: 700;
+      }
+      .pill-link:hover { color: var(--primary); }
+      @media (max-width: 991.98px) {
+        .hero { padding-top: 7rem; }
+        .story-grid { grid-template-columns: 1fr; }
+        .food-photo { min-height: 360px; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="visually-hidden-focusable position-absolute top-0 start-0 m-3 btn btn-light" href="#main">Skip to content</a>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 21h12"/>
+              <path d="M8 21V8l4-5 4 5v13"/>
+              <path d="M10 12h4"/>
+            </svg>
+          </div>
+          <span class="logo-word">UrbanFork</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="#special">Specials</a></li>
+            <li class="nav-item"><a class="nav-link" href="#booking">Booking</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            <li class="nav-item ms-lg-2"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">☾</button></li>
+            <li class="nav-item ms-lg-2"><a class="btn btn-brand" href="#booking">Reserve table</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <section class="hero" id="home">
+        <div class="container">
+          <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+              <span class="eyebrow">UrbanFork | Fine dining</span>
+              <h1 class="hero-title">A restaurant that feels warm, elegant, and reservation-ready.</h1>
+              <p class="hero-copy fs-5 mb-4">This restaurant is designed for cafes, family restaurants, food startups, and premium dining spaces. It includes the key sections modern restaurant templates commonly use: menu highlights, booking, specials, testimonials, and contact information.</p>
+              <div class="d-flex flex-wrap gap-3 mb-4">
+                <a class="btn btn-brand" href="#booking">Book a table</a>
+                <a class="btn btn-outline-soft" href="#menu">View menu</a>
+              </div>
+              <div class="stats-band">
+                <div class="row g-3 text-center text-md-start">
+                  <div class="col-6 col-md-4">
+                    <div class="stat-value">4.8★</div>
+                    <div class="muted small">Guest rating</div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="stat-value">32</div>
+                    <div class="muted small">Signature dishes</div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="stat-value">11pm</div>
+                    <div class="muted small">Kitchen closes daily</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="hero-visual">
+                <div class="food-photo" role="img" aria-label="Restaurant hero visual with gourmet food presentation">
+                  <div class="floating-note d-flex justify-content-between align-items-end gap-3">
+                    <div>
+                      <div class="menu-badge mb-2">Chef’s spotlight</div>
+                      <div class="h4 fw-bold mb-1">Smoked saffron risotto</div>
+                      <div class="muted small">Slow-cooked grains, parmesan cream, charred herbs</div>
+                    </div>
+                    <div class="price-tag">₹799</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="about">
+        <div class="container">
+          <div class="story-grid align-items-stretch">
+            <div class="story-card">
+              <div class="menu-badge mb-2">Our story</div>
+              <h2 class="section-title mb-3">Built for restaurants that want a stronger online presence</h2>
+              <p class="section-copy mb-4">Restaurant websites usually work best when they clearly show the dining style, top dishes, trust signals, and reservation path. This structure follows that professional approach so visitors can discover the menu and book faster.</p>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="info-card">
+                    <h3 class="h5 fw-bold">Elegant first impression</h3>
+                    <p class="muted mb-0">Warm typography, balanced spacing, and strong imagery help the brand feel premium.</p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="info-card">
+                    <h3 class="h5 fw-bold">Useful sections</h3>
+                    <p class="muted mb-0">Menu cards, chef specials, reviews, hours, and booking form are all ready to edit.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chef-mini">
+              <div id="chefCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="hover">
+                  <div class="carousel-inner h-100">
+                      <div class="carousel-item active h-100">
+                          <img src="RestaurantRecipe.jpeg" class="d-block w-100 h-100 object-fit-cover">
+                      </div>
+                      <div class="carousel-item h-100">
+                          <img src="food1.png" class="d-block w-100 h-100 object-fit-cover">
+                      </div>
+                      <div class="carousel-item h-100">
+                          <img src="food3.jpg" class="d-block w-100 h-100 object-fit-cover">
+                      </div>
+                  </div>
+                  <!-- Controls -->
+                  <button class="carousel-control-prev" type="button" data-bs-target="#chefCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#chefCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon"></span>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  </section>
+  <section class="section-pad pt-0" id="menu">
+        <div class="container">
+          <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+            <div>
+              <div class="menu-badge mb-2">Popular menu</div>
+              <h2 class="section-title mb-2">Signature dishes your guests will notice first</h2>
+              <p class="section-copy mb-0">Chinnu restaurant often highlight a few best-selling items to make the page more appetizing and easier to scan.</p>
+            </div>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+              <article class="menu-card">
+                <div class="menu-badge mb-2">Starter</div>
+                <h3 class="h5 fw-bold">Fire-roasted tomato soup</h3>
+                <p class="muted small">Basil oil, parmesan crisp, sourdough shards.</p>
+                <div class="divider-line"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="muted small">Vegetarian</span>
+                  <span class="price-tag">₹299</span>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="menu-card">
+                <div class="menu-badge mb-2">Main course</div>
+                <h3 class="h5 fw-bold">Wood-fired herb chicken</h3>
+                <p class="muted small">Garlic jus, mashed potato, grilled greens.</p>
+                <div class="divider-line"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="muted small">Chef favorite</span>
+                  <span class="price-tag">₹649</span>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="menu-card">
+                <div class="menu-badge mb-2">Seafood</div>
+                <h3 class="h5 fw-bold">Lemon butter grilled fish</h3>
+                <p class="muted small">Caper glaze, roasted vegetables, herb rice.</p>
+                <div class="divider-line"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="muted small">Fresh catch</span>
+                  <span class="price-tag">₹799</span>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="menu-card">
+                <div class="menu-badge mb-2">Dessert</div>
+                <h3 class="h5 fw-bold">Dark chocolate torte</h3>
+                <p class="muted small">Salt flakes, berry compote, vanilla cream.</p>
+                <div class="divider-line"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="muted small">Best seller</span>
+                  <span class="price-tag">₹349</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="special">
+        <div class="container">
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7">
+              <div class="booking-card h-100">
+                <div class="menu-badge mb-2">Weekend special</div>
+                <h2 class="section-title mb-3">Tasting menu experience for intimate evenings</h2>
+                <p class="section-copy mb-4">Use this section to promote chef events, brunch offers, private dining, festival menus, or seasonal dishes. It gives the website a more active and premium feel.</p>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <div class="info-card text-center">
+                      <div class="stat-value">5</div>
+                      <div class="muted small">Curated courses</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="info-card text-center">
+                      <div class="stat-value">2</div>
+                      <div class="muted small">Chef seatings</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="info-card text-center">
+                      <div class="stat-value">Fri-Sun</div>
+                      <div class="muted small">Available nights</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="review-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <div class="menu-badge mb-2">Guest review</div>
+                  <p class="fs-5 fw-semibold mb-4">“The website made us want to visit before we even saw the full menu. Booking was simple and the food photos felt premium.”</p>
+                </div>
+                <div>
+                  <div class="fw-bold">ZudyNick</div>
+                  <div class="muted">Verified diner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad pt-0" id="booking">
+        <div class="container">
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-5">
+              <div class="info-card h-100">
+                <div class="menu-badge mb-2">Reservations</div>
+                <h2 class="section-title mb-3">Book your table in a few seconds</h2>
+                <p class="section-copy mb-4">Professional restaurant sites often include a direct reservation form because it reduces friction and helps convert visitors into guests.</p>
+                <div class="d-grid gap-3">
+                  <a class="pill-link" href="#contact">Open daily: 12:00 PM – 11:00 PM</a>
+                  <a class="pill-link" href="tel:+910000000000">Phone: +91 00000 00000</a>
+                  <a class="pill-link" href="mailto:urbanfork@gmail.com.com">Email: urbanfork@gmail.com</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="booking-card h-100">
+                <form class="booking-form row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Your name</label>
+                    <input type="text" class="form-control" placeholder="Enter your name">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Phone number</label>
+                    <input type="tel" class="form-control" placeholder="Enter phone number">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Date</label>
+                    <input type="date" class="form-control">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Time</label>
+                    <input type="time" class="form-control">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Guests</label>
+                    <select class="form-select">
+                      <option>2 guests</option>
+                      <option>4 guests</option>
+                      <option>6 guests</option>
+                      <option>8+ guests</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Special note</label>
+                    <textarea class="form-control" rows="4" placeholder="Birthday, window seat, dietary request..."></textarea>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-brand w-100">Confirm reservation</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad pt-0" id="contact">
+        <div class="container">
+          <div class="booking-card">
+            <div class="row g-4 align-items-center">
+              <div class="col-lg-8">
+                <div class="menu-badge mb-2">Contact & location</div>
+                <h2 class="section-title mb-3">Ready to turn this into your own food website?</h2>
+                <p class="section-copy mb-0">I can customize this with your restaurant name, menu, address, gallery, chef section, Swiggy/Zomato buttons, Google Maps, and your real contact details.</p>
+              </div>
+              <div class="col-lg-4 text-lg-end">
+                <a class="btn btn-brand me-2 mb-2 mb-lg-0" href="#booking">Reserve now</a>
+                <a class="btn btn-outline-soft" href="#home">Back to top</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-wrap py-4">
+      <div class="container d-flex flex-column flex-md-row justify-content-between gap-2 align-items-md-center">
+        <p class="mb-0 muted">UrbanFork Restaurant Website.</p>
+        <p class="mb-0 muted">Designed for cafes, restaurants, and food brands.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const toggle = document.querySelector('[data-theme-toggle]');
+        let current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        root.setAttribute('data-theme', current);
+        toggle.textContent = current === 'dark' ? '☀' : '☾';
+        toggle.addEventListener('click', function () {
+          current = current === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', current);
+          toggle.textContent = current === 'dark' ? '☀' : '☾';
+          toggle.setAttribute('aria-label', current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+      }());
+      function showToast() {
+          const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+          toast.show();
+      }
+    </script>
+    <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+    <div id="liveToast" class="toast text-bg-dark border-0" data-bs-delay="3000">
+      <div class="d-flex">
+        <div class="toast-body">
+          🍽️ Chef special selected!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center py-3">
+      <div class="container">
+          <p>© 2026 UrbanFork Restaurant</p>
+      </div>
+  </footer>
+  </body>
+  </html>
